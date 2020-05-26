@@ -474,9 +474,25 @@ public class agendados extends javax.swing.JFrame {
          telefonoc = 2;
     }
  
+                            
                 try{
+                String nombrev ="";
+                String apellidov ="";
+                dbconnect sa = dbconnect.getInstance();
+                ResultSet loginu = sa.st.executeQuery("select nombre,apellido from DATOSCON where nombre = '"+ nombre + "'AND apellido = '" + apellido + "';");
+                //System.out.println(loginu);
+                	while (loginu.next()){
+	        	nombrev = (loginu.getString("nombre"));
                 
-                if(nombre.equals("") || apellido.equals("")|| direccionf.equals("")|| mailf.equals("")|| telefonof.equals("")|| mail.equals("")) {
+	        }
+                while (loginu.next()){
+	        	apellidov = (loginu.getString("apellido"));
+                System.out.println(apellidov);
+	        }
+                if (nombrev.equals(nombre)||apellidov.equals(apellido)) {
+                JOptionPane.showMessageDialog(null, "EL CONTACTO " + nombre +" "+ apellido +" EXISTENTE"); 
+                }
+                else if(nombre.equals("") || apellido.equals("")|| direccionf.equals("")|| mailf.equals("")|| telefonof.equals("")|| mail.equals("")) {
                 JOptionPane.showMessageDialog(null, "DEBE CARGAR TODOS LOS CAMPOS"); 
                 }
                 else{
@@ -497,7 +513,7 @@ public class agendados extends javax.swing.JFrame {
                 jComboBox2.setSelectedIndex(WIDTH);
                 jComboBox3.setSelectedIndex(WIDTH);
                 }
-                
+
   		} catch (Exception e) {
 			System.out.println("Revise el contacto cargado al agregar"+ e); //TODO: handle exception
         	}
